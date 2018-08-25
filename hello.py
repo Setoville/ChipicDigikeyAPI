@@ -37,19 +37,20 @@ def get_things(model,datasheet):
 		res = conn.getresponse()
 		rawData = res.read()
 		data = rawData.decode("utf-8")
-
-		if not rawData:
-			return json.dumps({'Error ':'Digikey API error'})
+		print(res)
 
 		#category is an INT
-		category = json.loads(data)['Parts'][0]['Category']['Id']
-		#print(type(category))
+		try:
+			category = json.loads(data)['Parts'][0]['Category']['Id']
+		except Exception:
+			return json.dumps({'Error ':'Digikey not exist'})
+
 		#break if the category in the JSON is in the list of acceptable categories
 		if category in acceptableCategories:
 			#print("found")
 			break
 		if total > 5:
-			return "Not acceptable category."
+			return json.dumps({'Error ':'Unacceptable category'})
 		total+=1
 
 
@@ -87,8 +88,9 @@ def get_things(model,datasheet):
 		return jsonDataAsString
 
 	except Exception:
-		pass
+		return json.dumps({'Error ':'Error with return dict parsing'})
 
-	return "Chip not found."
+
+	return json.dumps({'Error ':'No Bueno'})
 
 
