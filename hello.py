@@ -8,8 +8,8 @@ conn = http.client.HTTPSConnection("api.digikey.com")
 def hello_world():
 	return 'Insert model number as query!'
 
-@app.route('/<model>',methods=['GET'])
-def get_things(model):
+@app.route('/<model>/<datasheet>',methods=['GET'])
+def get_things(model,datasheet):
 
 	payloadFirstHalf = "{\"SearchOptions\":[\"CollapsePackingTypes\"],\"Keywords\":\""
 	payloadSecondHalf = "\",\"RecordCount\":\"1\",\"RecordStartPosition\":\"0\",\"Sort\":{\"Option\":\"SortByUnitPrice\",\"Direction\":\"Ascending\",\"SortParameterId\":\"50\"},\"RequestedQuantity\":\"50\"}"
@@ -31,9 +31,26 @@ def get_things(model):
 	res = conn.getresponse()
 	rawData = res.read()
 	data = rawData.decode("utf-8")
-	#print(data)
-	#jsonData = json.loads(data)
-	#jsonData[0]
-	jsonData = json.loads(data)
-	#print(jsonData['Parts'])
-	return json.dumps(jsonData['Parts'])
+
+
+	#jsonDataAsJson is a JSON
+	jsonDataAsJson = json.loads(data)
+
+	#jsonDataAsJson['Parts'] is a LIST of size ONE, 
+	# Z[0] makes it a DICT
+	primaryDatasheet = jsonDataAsJson['Parts'][0]['PrimaryDatasheet']
+	print(jsonDataAsJson['Parts'][0])
+
+	
+
+	#print(len(jsonDataAsJson['Parts']))
+
+	#get datasheet !!
+
+
+
+	jsonDataAsString = json.dumps(jsonDataAsJson['Parts'][0])
+
+	return jsonDataAsString
+
+
