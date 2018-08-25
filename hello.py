@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import abort
 from flask_cors import CORS
 import http.client
 import json
@@ -43,14 +44,14 @@ def get_things(model,datasheet):
 		try:
 			category = json.loads(data)['Parts'][0]['Category']['Id']
 		except Exception:
-			return json.dumps({'Error ':'Digikey not exist'})
+			abort(404)
 
 		#break if the category in the JSON is in the list of acceptable categories
 		if category in acceptableCategories:
 			#print("found")
 			break
 		if total > 5:
-			return json.dumps({'Error ':'Unacceptable category'})
+			abort(404)
 		total+=1
 
 
@@ -88,9 +89,10 @@ def get_things(model,datasheet):
 		return jsonDataAsString
 
 	except Exception:
-		return json.dumps({'Error ':'Error with return dict parsing'})
+		abort(404)
 
 
-	return json.dumps({'Error ':'No Bueno'})
+	abort(404)
+	return 0
 
 
