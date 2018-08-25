@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 conn = http.client.HTTPSConnection("api.digikey.com")
 
-acceptableCategories = [2,21,39]
+acceptableCategories = ["2","21","39"]
 
 @app.route('/')
 def hello_world():
@@ -40,13 +40,13 @@ def get_things(model,datasheet):
 
 		#category is an INT
 		category = json.loads(data)['Parts'][0]['Category']['Id']
-
+		#print(type(category))
 		#break if the category in the JSON is in the list of acceptable categories
-		if int(category) in acceptableCategories:
+		if category in acceptableCategories:
 			#print("found")
 			break
 		if total > 5:
-			return 0
+			return "Not acceptable category."
 		total+=1
 
 
@@ -68,15 +68,15 @@ def get_things(model,datasheet):
 		if int(datasheet) == 1:
 			returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
 
-		print(jsonDataAsDict['ProductDescription'])
+		returnDict.update({'productDescription':jsonDataAsDict['ProductDescription']})
 		returnDict.update({'familyText':jsonDataAsDict['Family']['Text']})
 		#familyText = jsonDataAsDict['Family']['Text']
-
+		returnDict.update({'digikeyPartNumber':jsonDataAsDict['DigiKeyPartNumber']})
 		returnDict.update({'categoryText':jsonDataAsDict['Category']['Text']})
 		#categoryText = jsonDataAsDict['Category']['Text']
 		returnDict.update({'primaryPhoto':jsonDataAsDict['PrimaryPhoto']})
 		#primaryPhoto = jsonDataAsDict['PrimaryPhoto']
-
+		returnDict.update({'manufacturerName':jsonDataAsDict['ManufacturerName']['Text']})
 	#	print(primaryPhoto)
 
 		jsonDataAsString = json.dumps(returnDict)
@@ -86,6 +86,6 @@ def get_things(model,datasheet):
 	except Exception:
 		pass
 
-	return 0
+	return "Chip not found."
 
 
