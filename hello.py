@@ -31,7 +31,9 @@ def get_things(model):
 	res = conn.getresponse()
 	rawData = res.read()
 	data = rawData.decode("utf-8")
-	json.dumps(data)
+	#print(data)
+	#jsonData = json.loads(data)
+	#jsonData[0]
 	jsonData = json.loads(data)
-	jsonData[0]
-	return 
+	#print(jsonData['Parts'])
+	return json.dumps(jsonData['Parts'])
