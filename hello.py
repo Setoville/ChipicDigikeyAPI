@@ -38,6 +38,9 @@ def get_things(model,datasheet):
 		rawData = res.read()
 		data = rawData.decode("utf-8")
 
+		if not rawData:
+			return json.dumps({'Error ':'Digikey API error'})
+
 		#category is an INT
 		category = json.loads(data)['Parts'][0]['Category']['Id']
 		#print(type(category))
