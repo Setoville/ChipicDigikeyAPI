@@ -1,0 +1,2 @@
+HT6_CLIENT_ID = "6da4b77a-d8fb-4c02-bfd3-9bff5ace9546"
+HT6_ACCESS_TOKEN = "zeQtgLqhzCmkBDLlIQKM58zxFRVi"
