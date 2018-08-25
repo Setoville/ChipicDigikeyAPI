@@ -48,22 +48,44 @@ def get_things(model,datasheet):
 		total+=1
 
 
-	#jsonDataAsJson is a JSON
-	jsonDataAsJson = json.loads(data)
+	#jsonDataAsList is a JSON
+	jsonDataAsList = json.loads(data)
 
 	#jsonDataAsJson['Parts'] is a LIST of size ONE, 
 	# Z[0] makes it a DICT
-	# [''] gets the VALUE to the KE
-	primaryDatasheet = jsonDataAsJson['Parts'][0]['PrimaryDatasheet']
-	
-	
-	#print(jsonDataAsJson['Parts'][0])
+
+	jsonDataAsDict = jsonDataAsList['Parts'][0]
 
 
+	#Return value
+	returnDict = {}
 
+	# jsonDataAsJson[''] gets the VALUE to the KEY
+	try:
+		print("found1")
+		#primaryDatasheet = jsonDataAsDict['PrimaryDatasheet']
+		returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
 
-	jsonDataAsString = json.dumps(jsonDataAsJson['Parts'][0])
+		print("found2")
 
-	return jsonDataAsString
+		returnDict.update({'familyText':jsonDataAsDict['Family']['Text']})
+		#familyText = jsonDataAsDict['Family']['Text']
+		print("found3")
+
+		returnDict.update({'categoryText':jsonDataAsDict['Category']['Text']})
+		#categoryText = jsonDataAsDict['Category']['Text']
+		returnDict.update({'primaryPhoto':jsonDataAsDict['PrimaryPhoto']})
+		#primaryPhoto = jsonDataAsDict['PrimaryPhoto']
+
+	#	print(primaryPhoto)
+
+		jsonDataAsString = json.dumps(returnDict)
+
+		return jsonDataAsString
+
+	except Exception:
+		pass
+
+	return 0
 
 
