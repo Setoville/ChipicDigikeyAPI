@@ -62,15 +62,12 @@ def get_things(model,datasheet):
 
 	# jsonDataAsJson[''] gets the VALUE to the KEY
 	try:
-		print("found1")
 		#primaryDatasheet = jsonDataAsDict['PrimaryDatasheet']
 		returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
 
-		print("found2")
 
 		returnDict.update({'familyText':jsonDataAsDict['Family']['Text']})
 		#familyText = jsonDataAsDict['Family']['Text']
-		print("found3")
 
 		returnDict.update({'categoryText':jsonDataAsDict['Category']['Text']})
 		#categoryText = jsonDataAsDict['Category']['Text']
