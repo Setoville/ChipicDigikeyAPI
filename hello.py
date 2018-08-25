@@ -1,8 +1,10 @@
 from flask import Flask
+from flask_cors import CORS
 import http.client
 import json
 import config
 app = Flask(__name__)
+CORS(app)
 conn = http.client.HTTPSConnection("api.digikey.com")
 
 acceptableCategories = [2,21,39]
@@ -41,7 +43,7 @@ def get_things(model,datasheet):
 
 		#break if the category in the JSON is in the list of acceptable categories
 		if int(category) in acceptableCategories:
-			print("found")
+			#print("found")
 			break
 		if total > 5:
 			return 0
@@ -66,7 +68,7 @@ def get_things(model,datasheet):
 		if int(datasheet) == 1:
 			returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
 
-
+		print(jsonDataAsDict['ProductDescription'])
 		returnDict.update({'familyText':jsonDataAsDict['Family']['Text']})
 		#familyText = jsonDataAsDict['Family']['Text']
 
