@@ -13,7 +13,7 @@ def hello_world():
 
 @app.route('/<model>/<datasheet>',methods=['GET'])
 def get_things(model,datasheet):
-
+	total = 0
 	while True:
 		payloadFirstHalf = "{\"SearchOptions\":[\"CollapsePackingTypes\"],\"Keywords\":\""
 		payloadSecondHalf = "\",\"RecordCount\":\"1\",\"RecordStartPosition\":\"0\",\"Sort\":{\"Option\":\"SortByUnitPrice\",\"Direction\":\"Ascending\",\"SortParameterId\":\"50\"},\"RequestedQuantity\":\"50\"}"
@@ -43,7 +43,9 @@ def get_things(model,datasheet):
 		if int(category) in acceptableCategories:
 			print("found")
 			break
-
+		if total > 5:
+			return 0
+		total+=1
 
 
 	#jsonDataAsJson is a JSON
@@ -51,7 +53,7 @@ def get_things(model,datasheet):
 
 	#jsonDataAsJson['Parts'] is a LIST of size ONE, 
 	# Z[0] makes it a DICT
-	# [''] gets the VALUE to the KEY
+	# [''] gets the VALUE to the KE
 	primaryDatasheet = jsonDataAsJson['Parts'][0]['PrimaryDatasheet']
 	
 	
