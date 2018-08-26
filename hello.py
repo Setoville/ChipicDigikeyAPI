@@ -14,7 +14,7 @@ acceptableCategories = ["2","21","39"]
 def hello_world():
 	return 'Insert model number as query!'
 
-@app.route('/<model>/<datasheet>',methods=['GET'])
+@app.route('/<model>',methods=['GET'])
 def get_things(model,datasheet):
 	total = 0
 	while True:
@@ -71,8 +71,8 @@ def get_things(model,datasheet):
 	# jsonDataAsJson[''] gets the VALUE to the KEY
 	try:
 		#primaryDatasheet = jsonDataAsDict['PrimaryDatasheet']
-		if int(datasheet) == 1:
-			returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
+		
+		returnDict.update({'primaryDatasheet':jsonDataAsDict['PrimaryDatasheet']})
 
 		returnDict.update({'productDescription':jsonDataAsDict['ProductDescription']})
 		returnDict.update({'familyText':jsonDataAsDict['Family']['Text']})
