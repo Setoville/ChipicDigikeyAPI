@@ -38,7 +38,7 @@ def get_things(model,datasheet):
 		res = conn.getresponse()
 		rawData = res.read()
 		data = rawData.decode("utf-8")
-		print("RESPONSE!!" + res)
+		print("RESPONSE!!" + data)
 
 		#category is an INT
 		try:
