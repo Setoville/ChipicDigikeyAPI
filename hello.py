@@ -15,7 +15,7 @@ def hello_world():
 	return 'Insert model number as query!'
 
 @app.route('/<model>',methods=['GET'])
-def get_things(model,datasheet):
+def get_things(model):
 	total = 0
 	while True:
 		payloadFirstHalf = "{\"SearchOptions\":[\"CollapsePackingTypes\"],\"Keywords\":\""
