@@ -38,12 +38,13 @@ def get_things(model,datasheet):
 		res = conn.getresponse()
 		rawData = res.read()
 		data = rawData.decode("utf-8")
-		print(res)
+		print("RESPONSE!!" + res)
 
 		#category is an INT
 		try:
 			category = json.loads(data)['Parts'][0]['Category']['Id']
 		except Exception:
+			print("Exception loading category")
 			abort(404)
 
 		#break if the category in the JSON is in the list of acceptable categories
